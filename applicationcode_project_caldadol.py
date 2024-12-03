@@ -241,19 +241,17 @@ def edit_workout(connection):
 
 #Connection with database:
 while True:
-    username=input('Introduce MySQL username: ')
-    password=input('Introduce MySQL password: ')
-    connection = pymysql.connect(
-        host='localhost',  
-        user=username,
-        password=password,
-        database='health_and_fitness_databaseSchema',
-        cursorclass=pymysql.cursors.DictCursor  
-    )
-    if connection:
-        print('Successful connection')
+    try:
+        username=input('Introduce MySQL username: ')
+        password=input('Introduce MySQL password: ')
+        connection = pymysql.connect(
+            host='localhost',  
+            user=username,
+            password=password,
+            database='health_and_fitness_databaseSchema',
+            cursorclass=pymysql.cursors.DictCursor ) 
         break
-    else:
+    except pymysql.MySQLError as error:
         print('incorrect credentials')
 
 #Login
