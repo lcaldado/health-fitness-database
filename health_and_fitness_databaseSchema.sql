@@ -184,12 +184,14 @@ CREATE PROCEDURE add_workout (IN user_id_p INT ,
 IN duration_p INT, 
 IN calories_burned_p INT)
 BEGIN
+	DECLARE last_workout INT;
 	-- we have to add new workout to workout table
     INSERT INTO workout(duration, calories_burned)
 		VALUES (duration_p , calories_burned_p) ; 
     -- we have to add new workout-user relationship into user_practices_workout table
+    SELECT workout_id INTO last_workout FROM workout ORDER BY workout_id DESC LIMIT 1;
     INSERT INTO user_practices_workout ( user_id , workout_id ) 
-		VALUES (user_id_p ,last_workout +1);
+		VALUES (user_id_p ,last_workout);
 END//
 DELIMITER ;
 
